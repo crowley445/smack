@@ -24,7 +24,6 @@ class GradientView: UIView {
     }
     
     override func layoutSubviews() {
-        print("a")
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [topColor.cgColor, bottomColor.cgColor]
         gradientLayer.startPoint = CGPoint(x: 0, y: 0)
