@@ -8,6 +8,10 @@
 
 import UIKit
 
+enum AvatarType {
+    case dark, light
+}
+
 class AvatarCell: UICollectionViewCell {
     
     @IBOutlet weak var cellImage: UIImageView!
@@ -15,6 +19,11 @@ class AvatarCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setUpView()
+    }
+    
+    func configureCell (index: Int, type: AvatarType) {
+        cellImage.image = UIImage(named: type == .dark ? "dark\(index)" : "light\(index)")
+        layer.backgroundColor = type == .dark ? UIColor.lightGray.cgColor : UIColor.darkGray.cgColor
     }
     
     func setUpView() {

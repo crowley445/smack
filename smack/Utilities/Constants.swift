@@ -16,8 +16,12 @@ let TO_CREATE_ACCOUNT = "toCreateAccount"
 let UNWIND_TO_CHANNEL = "unwindToChannel"
 let TO_AVATAR_PICKER = "toAvatarPicker"
 
-// User Defaults
+// Colors
+let COLOR_PURPLE = #colorLiteral(red: 0.431372549, green: 0.5450980392, blue: 0.8784313725, alpha: 0.5)
 
+// Notifications
+let NOTIF_USER_DATA_DID_CHANGE = Notification.Name("notifUserDataChanged")
+// User Defaults
 let TOKEN_KEY = "token"
 let LOGGED_IN_KEY = "loggedIn"
 let USER_EMAIL = "userEmail"
