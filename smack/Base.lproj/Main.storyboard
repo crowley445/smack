@@ -119,7 +119,7 @@
                                 <rect key="frame" x="281" y="85" width="22" height="22"/>
                                 <state key="normal" image="addChannelButton"/>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profileDefault" translatesAutoresizingMaskIntoConstraints="NO" id="nvZ-P1-joq" customClass="CircleImage" customModule="smack" customModuleProvider="target">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menuProfileIcon" translatesAutoresizingMaskIntoConstraints="NO" id="nvZ-P1-joq" customClass="CircleImage" customModule="smack" customModuleProvider="target">
                                 <rect key="frame" x="16" y="567" width="80" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="Rlq-1X-YA3"/>
@@ -154,7 +154,7 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aA1-FR-PtT">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aA1-FR-PtT">
                                 <rect key="frame" x="104" y="589" width="43" height="36"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                 <state key="normal" title="Login">
@@ -194,6 +194,7 @@
                     </view>
                     <connections>
                         <outlet property="loginButton" destination="aA1-FR-PtT" id="xN8-MB-AGM"/>
+                        <outlet property="userImage" destination="nvZ-P1-joq" id="YgR-KH-f3v"/>
                         <segue destination="mVj-8a-YDk" kind="show" identifier="toLogin" id="kpb-Ef-eWY"/>
                     </connections>
                 </viewController>
@@ -556,6 +557,7 @@
     <resources>
         <image name="addChannelButton" width="22" height="22"/>
         <image name="closeButton" width="28" height="28"/>
+        <image name="menuProfileIcon" width="99" height="99"/>
         <image name="profileDefault" width="192" height="192"/>
         <image name="smackBack" width="28" height="28"/>
         <image name="smackBurger" width="40" height="40"/>
