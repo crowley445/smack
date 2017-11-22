@@ -276,6 +276,9 @@
                                         <real key="value" value="5"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="loginButtonWasPressed:" destination="mVj-8a-YDk" eventType="touchUpInside" id="EsH-aK-5yJ"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XOd-AM-d0r">
                                 <rect key="frame" x="40" y="392" width="295" height="32"/>
@@ -423,10 +426,6 @@
                                     <action selector="pickBGColorPressed:" destination="M9Y-pG-rKm" eventType="touchUpInside" id="SNI-2s-yh6"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="emD-GD-ah8">
-                                <rect key="frame" x="169" y="215" width="37" height="37"/>
-                                <color key="color" red="0.43137254899999999" green="0.5450980392" blue="0.87843137250000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -434,9 +433,7 @@
                             <constraint firstItem="cT8-8A-NMf" firstAttribute="width" secondItem="CVe-Xr-EhP" secondAttribute="width" id="2ec-gC-iVQ"/>
                             <constraint firstItem="CS9-Zv-bWP" firstAttribute="trailing" secondItem="Iyq-HF-RaC" secondAttribute="trailing" constant="16" id="AWX-lm-mCa"/>
                             <constraint firstItem="yrj-HD-gzR" firstAttribute="top" secondItem="QHM-PG-EaT" secondAttribute="top" id="GFd-hA-xGn"/>
-                            <constraint firstItem="emD-GD-ah8" firstAttribute="centerY" secondItem="P7Y-hP-ii0" secondAttribute="centerY" constant="-100" id="HtR-QZ-lhA"/>
                             <constraint firstItem="Iyq-HF-RaC" firstAttribute="top" secondItem="CS9-Zv-bWP" secondAttribute="top" constant="20" id="LCw-Bk-jC9"/>
-                            <constraint firstItem="emD-GD-ah8" firstAttribute="centerX" secondItem="P7Y-hP-ii0" secondAttribute="centerX" id="LU0-Zg-n31"/>
                             <constraint firstItem="QHM-PG-EaT" firstAttribute="top" secondItem="CVe-Xr-EhP" secondAttribute="bottom" constant="40" id="NTd-vK-0uS"/>
                             <constraint firstItem="yrj-HD-gzR" firstAttribute="centerX" secondItem="QHM-PG-EaT" secondAttribute="centerX" id="bxj-PP-a1a"/>
                             <constraint firstItem="CVe-Xr-EhP" firstAttribute="leading" secondItem="CS9-Zv-bWP" secondAttribute="leading" constant="40" id="fy2-PT-u8c"/>
@@ -454,7 +451,6 @@
                         <viewLayoutGuide key="safeArea" id="CS9-Zv-bWP"/>
                     </view>
                     <connections>
-                        <outlet property="activityIndicator" destination="emD-GD-ah8" id="a17-Pv-61Y"/>
                         <outlet property="emailTextField" destination="31r-Ti-Ak9" id="fuP-UA-0uu"/>
                         <outlet property="passwordTextField" destination="h0c-Zn-1nN" id="SLl-fU-Ydx"/>
                         <outlet property="userImage" destination="QHM-PG-EaT" id="NZE-tX-z8j"/>

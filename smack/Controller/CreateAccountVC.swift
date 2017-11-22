@@ -13,23 +13,22 @@ class CreateAccountVC: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    
     @IBOutlet weak var userImage: UIImageView!
     
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     var avatarName = "profileDefault"
     var avatarColor = "[0.5, 0.5, 0.5, 1]"
-    
     var bgColor: UIColor?
+    var activityOverlay: ActivityOverlayView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
-        activityIndicator.isHidden = true
+        activityOverlay?.isHidden = true
         
         if UserDataServices.instance.avatarName != "" {
             self.avatarName = UserDataServices.instance.avatarName
@@ -40,16 +39,14 @@ class CreateAccountVC: UIViewController {
             userImage.backgroundColor = UIColor.lightGray
         }
     }
-    
-    
+
     @IBAction func createAccountPressed (_ sender: Any) {
-        
-        activityIndicator.isHidden = false
-        activityIndicator.startAnimating()
         
         guard let username = usernameTextField.text , usernameTextField.text != "" else { return }
         guard let email = emailTextField.text , emailTextField.text != "" else { return }
         guard let password = passwordTextField.text, passwordTextField.text != "" else { return }
+        
+        activityOverlay?.show()
         
         AuthServices.instance.registerUser(email: email, password: password) { (success) in
             if success {
@@ -63,8 +60,7 @@ class CreateAccountVC: UIViewController {
                         
                         AuthServices.instance.createUser(name: username, email: email, avatarName: self.avatarName, avatarColor: self.avatarColor, completion: { (success) in
                             
-                            self.activityIndicator.isHidden = true
-                            self.activityIndicator.stopAnimating()
+                            self.activityOverlay?.hide()
                             
                             NotificationCenter.default.post(name:NOTIF_USER_DATA_DID_CHANGE, object: nil)
                             self.performSegue(withIdentifier: UNWIND_TO_CHANNEL, sender: nil)
@@ -101,14 +97,19 @@ class CreateAccountVC: UIViewController {
     }
     
     func setUpView () {
+        
         usernameTextField.attributedPlaceholder = NSAttributedString(string: "username", attributes: [NSAttributedStringKey.foregroundColor: COLOR_PURPLE])
         emailTextField.attributedPlaceholder = NSAttributedString(string: "email", attributes: [NSAttributedStringKey.foregroundColor: COLOR_PURPLE])
         passwordTextField.attributedPlaceholder = NSAttributedString(string: "password", attributes: [NSAttributedStringKey.foregroundColor: COLOR_PURPLE])
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(CreateAccountVC.handleTap))
         view.addGestureRecognizer(tap)
+
+        activityOverlay = ActivityOverlayView(frame: view.frame)
+        view.addSubview(activityOverlay!)
     }
-    
+
+
     @objc func handleTap () {
         view.endEditing(true)
     }
