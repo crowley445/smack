@@ -21,6 +21,7 @@ let COLOR_PURPLE = #colorLiteral(red: 0.431372549, green: 0.5450980392, blue: 0.
 
 // Notifications
 let NOTIF_USER_DATA_DID_CHANGE = Notification.Name("notifUserDataChanged")
+
 // User Defaults
 let TOKEN_KEY = "token"
 let LOGGED_IN_KEY = "loggedIn"

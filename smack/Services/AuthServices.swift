@@ -70,7 +70,7 @@ class AuthServices {
             "password": password
         ]
         
-        Alamofire.request(URL_LOGIN, method: .post, parameters: body, encoding: JSONEncoding.default, headers: HEADER).responseJSON { (response) in
+        Alamofire.request(URL_LOGIN, method: .post, parameters: body, encoding: JSONEncoding.default, headers: HEADER).response { (response) in
             
             if response.error == nil {
 
@@ -100,7 +100,7 @@ class AuthServices {
         
         let body = [
             "name": name,
-            "email": email,
+            "email": lowercaseEmail,
             "avatarName": avatarName,
             "avatarColor": avatarColor
         ]

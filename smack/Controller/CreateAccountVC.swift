@@ -15,11 +15,12 @@ class CreateAccountVC: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var userImage: UIImageView!
     
+    var loadingScreen : LoadingScreenVC!
     
     var avatarName = "profileDefault"
     var avatarColor = "[0.5, 0.5, 0.5, 1]"
     var bgColor: UIColor?
-    var activityOverlay: ActivityOverlayView?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,8 +28,6 @@ class CreateAccountVC: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        activityOverlay?.isHidden = true
         
         if UserDataServices.instance.avatarName != "" {
             self.avatarName = UserDataServices.instance.avatarName
@@ -46,7 +45,7 @@ class CreateAccountVC: UIViewController {
         guard let email = emailTextField.text , emailTextField.text != "" else { return }
         guard let password = passwordTextField.text, passwordTextField.text != "" else { return }
         
-        activityOverlay?.show()
+        present(loadingScreen!, animated: true, completion: nil)
         
         AuthServices.instance.registerUser(email: email, password: password) { (success) in
             if success {
@@ -60,10 +59,10 @@ class CreateAccountVC: UIViewController {
                         
                         AuthServices.instance.createUser(name: username, email: email, avatarName: self.avatarName, avatarColor: self.avatarColor, completion: { (success) in
                             
-                            self.activityOverlay?.hide()
-                            
-                            NotificationCenter.default.post(name:NOTIF_USER_DATA_DID_CHANGE, object: nil)
-                            self.performSegue(withIdentifier: UNWIND_TO_CHANNEL, sender: nil)
+                            self.loadingScreen.hide(completion: { (completed) in
+                                NotificationCenter.default.post(name:NOTIF_USER_DATA_DID_CHANGE, object: nil)
+                                self.performSegue(withIdentifier: UNWIND_TO_CHANNEL, sender: nil)
+                            })
                         })
                         
                     } else {
@@ -106,9 +105,9 @@ class CreateAccountVC: UIViewController {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(CreateAccountVC.handleTap))
         view.addGestureRecognizer(tap)
-
-        activityOverlay = ActivityOverlayView(frame: view.frame)
-        view.addSubview(activityOverlay!)
+        
+        loadingScreen = LoadingScreenVC()
+        loadingScreen.modalPresentationStyle = .custom
     }
 
 

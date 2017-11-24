@@ -10,7 +10,8 @@
 		1B41DE2E4A7189915EF81664 /* Pods_smack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06A848054A0AF4307B27A2C6 /* Pods_smack.framework */; };
 		88355CA41FBDE2BD000402AF /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88355CA31FBDE2BD000402AF /* Constants.swift */; };
 		88355CA61FBDE3BF000402AF /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88355CA51FBDE3BF000402AF /* LoginVC.swift */; };
-		885A44981FC592F600A1C22B /* ActivityOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885A44971FC592F600A1C22B /* ActivityOverlayView.swift */; };
+		8840BDCC1FC826E50046102F /* LoadingScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8840BDCA1FC826E50046102F /* LoadingScreenVC.swift */; };
+		8840BDCD1FC826E50046102F /* LoadingScreenVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8840BDCB1FC826E50046102F /* LoadingScreenVC.xib */; };
 		8878927E1FC2E5A3007F2CEF /* UserDataServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878927D1FC2E5A3007F2CEF /* UserDataServices.swift */; };
 		887892801FC2F39F007F2CEF /* AvatarPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878927F1FC2F39F007F2CEF /* AvatarPickerVC.swift */; };
 		887892821FC2F483007F2CEF /* AvatarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887892811FC2F483007F2CEF /* AvatarCell.swift */; };
@@ -36,7 +37,8 @@
 		78442FC495D6CAEF2C6F02D8 /* Pods-smack.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-smack.release.xcconfig"; path = "Pods/Target Support Files/Pods-smack/Pods-smack.release.xcconfig"; sourceTree = "<group>"; };
 		88355CA31FBDE2BD000402AF /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		88355CA51FBDE3BF000402AF /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
-		885A44971FC592F600A1C22B /* ActivityOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityOverlayView.swift; sourceTree = "<group>"; };
+		8840BDCA1FC826E50046102F /* LoadingScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenVC.swift; sourceTree = "<group>"; };
+		8840BDCB1FC826E50046102F /* LoadingScreenVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingScreenVC.xib; sourceTree = "<group>"; };
 		8878927D1FC2E5A3007F2CEF /* UserDataServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataServices.swift; sourceTree = "<group>"; };
 		8878927F1FC2F39F007F2CEF /* AvatarPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarPickerVC.swift; sourceTree = "<group>"; };
 		887892811FC2F483007F2CEF /* AvatarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCell.swift; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				8878E1F51FC5D20C00D26C0C /* ProfileVC.xib */,
+				8840BDCB1FC826E50046102F /* LoadingScreenVC.xib */,
 			);
 			path = XIB;
 			sourceTree = "<group>";
@@ -115,6 +118,7 @@
 				88DFDBCC1FBF1CE70092B3E2 /* CreateAccountVC.swift */,
 				8878927F1FC2F39F007F2CEF /* AvatarPickerVC.swift */,
 				8878E1F41FC5D20C00D26C0C /* ProfileVC.swift */,
+				8840BDCA1FC826E50046102F /* LoadingScreenVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -126,7 +130,6 @@
 				88ED36C81FC1C0F80060A07E /* RoundedButton.swift */,
 				887892811FC2F483007F2CEF /* AvatarCell.swift */,
 				887989DB1FC49BC300672888 /* CircleImage.swift */,
-				885A44971FC592F600A1C22B /* ActivityOverlayView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 				88AD7E981FBD9E19007BFC9A /* LaunchScreen.storyboard in Resources */,
 				88AD7E951FBD9E19007BFC9A /* Assets.xcassets in Resources */,
 				88AD7E931FBD9E19007BFC9A /* Main.storyboard in Resources */,
+				8840BDCD1FC826E50046102F /* LoadingScreenVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,12 +322,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				885A44981FC592F600A1C22B /* ActivityOverlayView.swift in Sources */,
 				88AAEE831FBDBDC40053EC07 /* ChannelVC.swift in Sources */,
 				887892801FC2F39F007F2CEF /* AvatarPickerVC.swift in Sources */,
 				88ED36C91FC1C0F80060A07E /* RoundedButton.swift in Sources */,
 				8878E1F61FC5D20C00D26C0C /* ProfileVC.swift in Sources */,
 				887989DC1FC49BC300672888 /* CircleImage.swift in Sources */,
+				8840BDCC1FC826E50046102F /* LoadingScreenVC.swift in Sources */,
 				88AD7E8E1FBD9E19007BFC9A /* AppDelegate.swift in Sources */,
 				88DFDBCD1FBF1CE70092B3E2 /* CreateAccountVC.swift in Sources */,
 				88355CA61FBDE3BF000402AF /* LoginVC.swift in Sources */,
