@@ -309,6 +309,8 @@
                         <viewLayoutGuide key="safeArea" id="pgF-Mj-j5y"/>
                     </view>
                     <connections>
+                        <outlet property="emailTextField" destination="Sdz-GQ-S6C" id="ZhC-Z4-ggp"/>
+                        <outlet property="passwordTextField" destination="TMG-y1-BXR" id="BLv-8Z-915"/>
                         <segue destination="M9Y-pG-rKm" kind="show" identifier="toCreateAccount" id="x9j-Fi-ySi"/>
                     </connections>
                 </viewController>

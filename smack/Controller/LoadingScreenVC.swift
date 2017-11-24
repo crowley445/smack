@@ -34,12 +34,13 @@ class LoadingScreenVC: UIViewController {
     
     public func hide(completion: @escaping (_ success: Bool) -> Void ) {
         
+        self.spinner.stopAnimating()
         UIView.animate(withDuration: fadeTime, animations: {
             self.view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
         }) { (finished) in
-            self.spinner.stopAnimating()
             self.dismiss(animated: false, completion: nil)
             return completion(finished)
         }
+        
     }
 }
