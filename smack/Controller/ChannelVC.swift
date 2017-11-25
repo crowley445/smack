@@ -8,16 +8,27 @@
 
 import UIKit
 
-class ChannelVC: UIViewController {
-
+class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+   
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var userImage: CircleImage!
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue){}
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.delegate = self
+        tableView.dataSource = self
         revealViewController().rearViewRevealWidth = view.frame.size.width - 60
+        
         NotificationCenter.default.addObserver(self, selector: #selector(userDataDidChange(_:)), name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
+        
+        SocketServices.instance.getChannel { (succes) in
+            if succes {
+                self.tableView.reloadData()
+            } 
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -38,6 +49,28 @@ class ChannelVC: UIViewController {
             userImage.image = UIImage(named: "menuProfileIcon")
             userImage.backgroundColor = UIColor.lightGray
         }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "channelCell", for: indexPath) as? ChannelCell {
+            cell.configureCell(channel: MessageServices.instance.channels[indexPath.row])
+            return cell
+        }
+        return UITableViewCell()
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return MessageServices.instance.channels.count
+    }
+    
+    @IBAction func addChannelPressed(_ sender: Any) {
+        let addChannel = AddChannelVC()
+        addChannel.modalPresentationStyle = .custom
+        present(addChannel, animated: true, completion: nil)
     }
     
     @IBAction func loginButtonPressed(_ sender: Any) {

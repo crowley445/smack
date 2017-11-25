@@ -19,6 +19,14 @@ class ChatVC: UIViewController {
         view.addGestureRecognizer(revealViewController().tapGestureRecognizer())
         
         CheckIfLoggedInAndUpdateInfo()
+        
+        MessageServices.instance.findAllChannels { (success) in
+            if success {
+                debugPrint(MessageServices.instance.channels)
+            } else {
+                debugPrint("FUCK!")
+            }
+        }
     }
     
     private func CheckIfLoggedInAndUpdateInfo () {

@@ -118,6 +118,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ir-9o-KBt">
                                 <rect key="frame" x="281" y="85" width="22" height="22"/>
                                 <state key="normal" image="addChannelButton"/>
+                                <connections>
+                                    <action selector="addChannelPressed:" destination="EC0-GR-N9P" eventType="touchUpInside" id="OgG-3E-txX"/>
+                                </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menuProfileIcon" translatesAutoresizingMaskIntoConstraints="NO" id="nvZ-P1-joq" customClass="CircleImage" customModule="smack" customModuleProvider="target">
                                 <rect key="frame" x="16" y="567" width="80" height="80"/>
@@ -130,7 +133,7 @@
                                 <rect key="frame" x="0.0" y="119" width="375" height="436"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="nVL-Fn-dd8">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="channelCell" id="nVL-Fn-dd8" customClass="ChannelCell" customModule="smack" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="nVL-Fn-dd8" id="Kxg-gS-B2F">
@@ -151,6 +154,9 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="yA7-me-FM4" id="INS-kj-bZ5"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -194,6 +200,7 @@
                     </view>
                     <connections>
                         <outlet property="loginButton" destination="aA1-FR-PtT" id="xN8-MB-AGM"/>
+                        <outlet property="tableView" destination="jdf-Rg-Gq6" id="TLE-KJ-cUW"/>
                         <outlet property="userImage" destination="nvZ-P1-joq" id="YgR-KH-f3v"/>
                         <segue destination="mVj-8a-YDk" kind="show" identifier="toLogin" id="kpb-Ef-eWY"/>
                     </connections>
