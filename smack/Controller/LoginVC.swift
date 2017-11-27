@@ -46,7 +46,7 @@ class LoginVC: UIViewController {
                     }
                 })
             } else {
-                debugPrint("failed to log in by LoginVC")
+                print("failed to log in by LoginVC")
             }
         }
 

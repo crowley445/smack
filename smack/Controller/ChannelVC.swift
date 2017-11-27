@@ -23,6 +23,7 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         revealViewController().rearViewRevealWidth = view.frame.size.width - 60
         
         NotificationCenter.default.addObserver(self, selector: #selector(userDataDidChange(_:)), name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(channelsLoaded(_:)), name: NOTIF_CHANNELS_LOADED, object: nil)
         
         SocketServices.instance.getChannel { (succes) in
             if succes {
@@ -39,6 +40,10 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         setupUserInfo()
     }
     
+    @objc func channelsLoaded(_ notif: Notification) {
+        tableView.reloadData()
+    }
+    
     func setupUserInfo () {
         if AuthServices.instance.loggedIn {
             loginButton.setTitle(UserDataServices.instance.name, for: .normal)
@@ -48,6 +53,7 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             loginButton.setTitle("Login", for: .normal)
             userImage.image = UIImage(named: "menuProfileIcon")
             userImage.backgroundColor = UIColor.lightGray
+            tableView.reloadData()
         }
     }
     
@@ -67,14 +73,21 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         return MessageServices.instance.channels.count
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        MessageServices.instance.selectedChannel = MessageServices.instance.channels[indexPath.row]
+        NotificationCenter.default.post(name: NOTIF_CHANNEL_SELECTED, object: nil)
+        revealViewController().revealToggle(animated: true)
+    }
+    
     @IBAction func addChannelPressed(_ sender: Any) {
-        let addChannel = AddChannelVC()
-        addChannel.modalPresentationStyle = .custom
-        present(addChannel, animated: true, completion: nil)
+        if AuthServices.instance.loggedIn {
+            let addChannel = AddChannelVC()
+            addChannel.modalPresentationStyle = .custom
+            present(addChannel, animated: true, completion: nil)
+        }
     }
     
     @IBAction func loginButtonPressed(_ sender: Any) {
-        
         if AuthServices.instance.loggedIn {
             let profile = ProfileVC()
             profile.modalPresentationStyle = .custom

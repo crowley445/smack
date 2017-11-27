@@ -21,6 +21,8 @@ let COLOR_PURPLE = #colorLiteral(red: 0.431372549, green: 0.5450980392, blue: 0.
 
 // Notifications
 let NOTIF_USER_DATA_DID_CHANGE = Notification.Name("notifUserDataChanged")
+let NOTIF_CHANNELS_LOADED = Notification.Name("channelsLoaded")
+let NOTIF_CHANNEL_SELECTED = Notification.Name("channelSelected")
 
 // User Defaults
 let TOKEN_KEY = "token"
@@ -34,6 +36,7 @@ let URL_LOGIN = "\(BASE_URL)account/login"
 let URL_USER_ADD = "\(BASE_URL)user/add"
 let URL_USER_BY_EMAIL = "\(BASE_URL)user/byEmail/"
 let URL_GET_CHANNELS = "\(BASE_URL)channel"
+let URL_GET_MESSAGES = "\(BASE_URL)message/byChannel/"
 
 //Headers
 let HEADER = [

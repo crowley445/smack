@@ -16,9 +16,6 @@ class AddChannelVC: UIViewController {
     @IBOutlet weak var descriptionTextField: UITextField!
     
     
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()

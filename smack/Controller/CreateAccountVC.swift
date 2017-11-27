@@ -49,20 +49,21 @@ class CreateAccountVC: UIViewController {
         
         AuthServices.instance.registerUser(email: email, password: password) { (success) in
             if success {
-                
-                print("registered user!")
-                
+                                
                 AuthServices.instance.loginUser(email: email, password: password, completion: { (success) in
                     if success {
                         
-                        print("user logged in!")
-                        
                         AuthServices.instance.createUser(name: username, email: email, avatarName: self.avatarName, avatarColor: self.avatarColor, completion: { (success) in
                             
-                            self.loadingScreen.hide(completion: { (completed) in
-                                NotificationCenter.default.post(name:NOTIF_USER_DATA_DID_CHANGE, object: nil)
-                                self.performSegue(withIdentifier: UNWIND_TO_CHANNEL, sender: nil)
-                            })
+                            if success {
+                                self.loadingScreen.hide(completion: { (completed) in
+                                    NotificationCenter.default.post(name:NOTIF_USER_DATA_DID_CHANGE, object: nil)
+                                    self.performSegue(withIdentifier: UNWIND_TO_CHANNEL, sender: nil)
+                                })
+                            } else {
+                                debugPrint("failed to create user in CreateAccountVC")
+                            }
+
                         })
                         
                     } else {

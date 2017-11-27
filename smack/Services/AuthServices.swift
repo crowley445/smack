@@ -107,7 +107,7 @@ class AuthServices {
         
         Alamofire.request(URL_USER_ADD, method: .post, parameters: body, encoding: JSONEncoding.default, headers: BEARER_HEADER).responseJSON { (response) in
             
-            if response.result.error == nil {
+            if response.error == nil {
                 
                 guard let data = response.data else { return }
                 self.setUserInfo(withJSONData: data)
@@ -115,7 +115,7 @@ class AuthServices {
                                 
             } else {
                 completion(false)
-                debugPrint(response.result.error as Any)
+                debugPrint(response.error as Any)
             }
         }
     }
@@ -150,7 +150,7 @@ class AuthServices {
             
             UserDataServices.instance.setUserData(id: id, avatarName: avatarName, avatarColor: avatarColor, name: name, email: email)
         } catch {
-            debugPrint("failed to parse add user response")
+            print("failed to parse add user response in AuthServices")
         }
         
     }
