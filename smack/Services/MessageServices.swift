@@ -14,7 +14,7 @@ class MessageServices {
     
     static let instance = MessageServices()
     var channels = [Channel]()
-    var messages = [Message()]
+    var messages = [Message]()
     var selectedChannel : Channel?
     
     func findAllChannels (completion: @escaping CompletionHandler) {
@@ -47,9 +47,9 @@ class MessageServices {
         
         Alamofire.request("\(URL_GET_MESSAGES)\(id)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: BEARER_HEADER).responseJSON { (response) in
             
-            
+            self.clearMessages()
+
             if response.result.error == nil {
-                self.clearMessages()
                 guard let data = response.data else { return }
 
                 do {
@@ -64,7 +64,6 @@ class MessageServices {
                         let avatarName = item["userAvatar"].stringValue
                         let avatarColor = item["userAvatarColor"].stringValue
                         let timeStamp = item["timeStamp"].stringValue
-                        
                         let message = Message(message: messageBody, userName: userName, channelId: channelId, avatarName: avatarName , avatarColor: avatarColor, id: id, timeStamp: timeStamp)
                         self.messages.append(message)
                     }

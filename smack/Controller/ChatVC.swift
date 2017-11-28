@@ -8,11 +8,16 @@
 
 import UIKit
 
-class ChatVC: UIViewController {
+class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var menuButton : UIButton!
     @IBOutlet weak var channelNameLabel: UILabel!
     @IBOutlet weak var messageField: UITextField!
+    @IBOutlet weak var tableview: UITableView!
+    @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var isTypingLabel: UILabel!
+    
+    var isTyping = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,32 +33,43 @@ class ChatVC: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(channelSelected(_:)), name: NOTIF_CHANNEL_SELECTED, object: nil)
         view.bindToKeyboard()
         
+        SocketServices.instance.getChatMessage { (success) in
+            if (success) {
+                self.tableview.reloadData()
+                let endIndex = IndexPath(row: MessageServices.instance.messages.count - 1, section: 0)
+                self.tableview.scrollToRow(at: endIndex, at: .bottom, animated: false)
+            }
+        }
+        
+        SocketServices.instance.getTypingUsers { (typingUsers) in
+            guard let channelId = MessageServices.instance.selectedChannel?.id else { return }
+            var names = ""
+            var numberOfTypers = 0
+            
+            for (typingUser, channel) in typingUsers {
+                if typingUser != UserDataServices.instance.name && channel == channelId {
+                    names = names == "" ? typingUser : "\(names), \(typingUser)"
+                    numberOfTypers += 1
+                }
+            }
+            
+            if numberOfTypers > 0 && AuthServices.instance.loggedIn {
+                let verb = numberOfTypers > 1 ? "are" : "is"
+                self.isTypingLabel.text = "\(names) \(verb) typing a message"
+            } else {
+                self.isTypingLabel.text = ""
+            }
+        }
+        
+        tableview.delegate = self
+        tableview.dataSource = self
+        tableview.estimatedRowHeight = 80
+        tableview.rowHeight = UITableViewAutomaticDimension
+        
+        sendButton.isHidden = true
+        
         CheckIfLoggedInAndUpdateInfo()
     }
-    
-    
-    @objc func userDataDidChange(_ notif: Notification) {
-        if AuthServices.instance.loggedIn {
-            getMessagesOnLogin()
-        } else {
-            channelNameLabel.text = "Please Login"
-        }
-    }
-    
-    @objc func channelSelected(_ notif: Notification) {
-        updateWithChannel()
-    }
-    
-    @objc func handleTap () {
-        view.endEditing(true)
-    }
-    
-    func updateWithChannel () {
-        let channelName = MessageServices.instance.selectedChannel?.name ?? ""
-        channelNameLabel.text = "#\(channelName)"
-        getMessages()
-    }
-    
     
     func CheckIfLoggedInAndUpdateInfo () {
         
@@ -66,6 +82,23 @@ class ChatVC: UIViewController {
                 }
             })
         }
+    }
+    
+    @objc func userDataDidChange(_ notif: Notification) {
+        if AuthServices.instance.loggedIn {
+            getMessagesOnLogin()
+        } else {
+            tableview.reloadData()
+            channelNameLabel.text = "Please Login"
+        }
+    }
+    
+    @objc func channelSelected(_ notif: Notification) {
+        updateWithChannel()
+    }
+    
+    @objc func handleTap () {
+        view.endEditing(true)
     }
     
     func getMessagesOnLogin () {
@@ -83,16 +116,40 @@ class ChatVC: UIViewController {
         }
     }
     
+    func updateWithChannel () {
+        let channelName = MessageServices.instance.selectedChannel?.name ?? ""
+        channelNameLabel.text = "#\(channelName)"
+        getMessages()
+    }
+    
     func getMessages () {
         
         guard let channelId = MessageServices.instance.selectedChannel?.id else { return }
         MessageServices.instance.findAllMessagesByChannel(id: channelId) { (success) in
             if success {
-                print("SUCCESS: \(MessageServices.instance.messages[0])")
+                self.tableview.reloadData()
             }
         }
     }
 
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableview.dequeueReusableCell(withIdentifier: "messageCell", for: indexPath) as? MessageCell {
+            let message = MessageServices.instance.messages[indexPath.row]
+            cell.configureCell(message: message)
+            return cell
+        }
+        
+        return MessageCell()
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return MessageServices.instance.messages.count
+    }
+    
     @IBAction func sendMessagePressed(_ sender: Any) {
                 
         if AuthServices.instance.loggedIn {
@@ -103,6 +160,7 @@ class ChatVC: UIViewController {
                 if success {
                     self.messageField.text = ""
                     self.messageField.resignFirstResponder()
+                    SocketServices.instance.socket?.emit("stopType", UserDataServices.instance.name, channelId)
                 } else {
                     print("failed to send message in ChatVC")
                 }
@@ -110,5 +168,20 @@ class ChatVC: UIViewController {
         }
     }
     
-
+    @IBAction func messageFieldEditing(_ sender: Any) {
+        guard let channelId = MessageServices.instance.selectedChannel?.id else { return }
+        
+        if messageField.text == ""  {
+            isTyping = false
+            sendButton.isHidden = true
+            SocketServices.instance.socket?.emit("stopType", UserDataServices.instance.name, channelId)
+        } else {
+            if !isTyping {
+                sendButton.isHidden = false
+                SocketServices.instance.socket?.emit("startType", UserDataServices.instance.name, channelId)
+            }
+            isTyping = true
+        }
+    }
+    
 }

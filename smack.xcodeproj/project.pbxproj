@@ -12,6 +12,7 @@
 		88355CA61FBDE3BF000402AF /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88355CA51FBDE3BF000402AF /* LoginVC.swift */; };
 		8840BDCC1FC826E50046102F /* LoadingScreenVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8840BDCA1FC826E50046102F /* LoadingScreenVC.swift */; };
 		8840BDCD1FC826E50046102F /* LoadingScreenVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8840BDCB1FC826E50046102F /* LoadingScreenVC.xib */; };
+		885B014C1FCD72B900C3CFA2 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885B014B1FCD72B900C3CFA2 /* MessageCell.swift */; };
 		8878927E1FC2E5A3007F2CEF /* UserDataServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878927D1FC2E5A3007F2CEF /* UserDataServices.swift */; };
 		887892801FC2F39F007F2CEF /* AvatarPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8878927F1FC2F39F007F2CEF /* AvatarPickerVC.swift */; };
 		887892821FC2F483007F2CEF /* AvatarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 887892811FC2F483007F2CEF /* AvatarCell.swift */; };
@@ -47,6 +48,7 @@
 		88355CA51FBDE3BF000402AF /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		8840BDCA1FC826E50046102F /* LoadingScreenVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingScreenVC.swift; sourceTree = "<group>"; };
 		8840BDCB1FC826E50046102F /* LoadingScreenVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingScreenVC.xib; sourceTree = "<group>"; };
+		885B014B1FCD72B900C3CFA2 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		8878927D1FC2E5A3007F2CEF /* UserDataServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataServices.swift; sourceTree = "<group>"; };
 		8878927F1FC2F39F007F2CEF /* AvatarPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarPickerVC.swift; sourceTree = "<group>"; };
 		887892811FC2F483007F2CEF /* AvatarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCell.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				887892811FC2F483007F2CEF /* AvatarCell.swift */,
 				887989DB1FC49BC300672888 /* CircleImage.swift */,
 				88E1E3D11FC9AF480095F16C /* ChannelCell.swift */,
+				885B014B1FCD72B900C3CFA2 /* MessageCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 				88AAEE871FBDCAC10053EC07 /* GradientView.swift in Sources */,
 				8878927E1FC2E5A3007F2CEF /* UserDataServices.swift in Sources */,
 				88B284A51FC98B2B00276396 /* AddChannelVC.swift in Sources */,
+				885B014C1FCD72B900C3CFA2 /* MessageCell.swift in Sources */,
 				88BC7C371FCC501B007E11C3 /* Message.swift in Sources */,
 				88AAEE7E1FBDA8B70053EC07 /* SWRevealViewController.m in Sources */,
 				887892821FC2F483007F2CEF /* AvatarCell.swift in Sources */,
