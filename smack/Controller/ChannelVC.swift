@@ -25,6 +25,13 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         NotificationCenter.default.addObserver(self, selector: #selector(userDataDidChange(_:)), name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(channelsLoaded(_:)), name: NOTIF_CHANNELS_LOADED, object: nil)
         
+        SocketServices.instance.getChatMessage { (newMessage) in
+            if MessageServices.instance.selectedChannel?.id != newMessage.channelId && AuthServices.instance.loggedIn {
+                MessageServices.instance.unreadChannels.append(newMessage.channelId)
+                self.tableView.reloadData()
+            }
+        }
+        
         SocketServices.instance.getChannel { (succes) in
             if succes {
                 self.tableView.reloadData()
@@ -74,6 +81,15 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let channel = MessageServices.instance.channels[indexPath.row]
+        if MessageServices.instance.unreadChannels.count > 0 {
+            MessageServices.instance.unreadChannels = MessageServices.instance.unreadChannels.filter{$0 != channel.id}
+        }
+        
+        let index = IndexPath(item: indexPath.row, section: 0)
+        tableView.reloadRows(at: [indexPath], with: .none)
+        tableView.selectRow(at: index, animated: false, scrollPosition: .none)
+        
         MessageServices.instance.selectedChannel = MessageServices.instance.channels[indexPath.row]
         NotificationCenter.default.post(name: NOTIF_CHANNEL_SELECTED, object: nil)
         revealViewController().revealToggle(animated: true)

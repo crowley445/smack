@@ -63,6 +63,7 @@ class AuthServices {
     }
     
     func loginUser(email: String, password: String, completion: @escaping CompletionHandler) {
+        
         let lowercaseEmail = email.lowercased()
         
         let body = [
@@ -152,14 +153,5 @@ class AuthServices {
         } catch {
             print("failed to parse add user response in AuthServices")
         }
-        
     }
-    
-    
 }
-
-
-
-
-
-

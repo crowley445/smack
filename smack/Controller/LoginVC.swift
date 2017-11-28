@@ -59,6 +59,4 @@ class LoginVC: UIViewController {
         loadingScreen = LoadingScreenVC()
         loadingScreen.modalPresentationStyle = .custom
     }
-    
-    
 }

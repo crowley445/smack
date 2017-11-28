@@ -31,5 +31,4 @@ class GradientView: UIView {
         gradientLayer.frame = bounds
         layer.insertSublayer(gradientLayer, at: 0)
     }
-        
 }

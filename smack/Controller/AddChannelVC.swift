@@ -10,11 +10,9 @@ import UIKit
 
 class AddChannelVC: UIViewController {
 
-    
     @IBOutlet weak var backgroundView: UIView!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var descriptionTextField: UITextField!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,12 +30,10 @@ class AddChannelVC: UIViewController {
     @objc func closeOnTap (_ recognizer: UITapGestureRecognizer) {
         dismiss(animated: true, completion: nil)
     }
-    
 
     @IBAction func closeButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
     
     @IBAction func createChannelPressed(_ sender: Any) {
         guard let name = nameTextField.text, nameTextField.text != "" else { return }
@@ -51,11 +47,4 @@ class AddChannelVC: UIViewController {
             }
         }
     }
-    
-    
-    
-    
-    
-    
-    
 }

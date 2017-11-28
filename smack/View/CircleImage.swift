@@ -24,6 +24,4 @@ class CircleImage: UIImageView {
         layer.cornerRadius = frame.width / 2
         clipsToBounds = true
     }
-    
-
 }

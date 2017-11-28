@@ -33,13 +33,14 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         NotificationCenter.default.addObserver(self, selector: #selector(channelSelected(_:)), name: NOTIF_CHANNEL_SELECTED, object: nil)
         view.bindToKeyboard()
         
-        SocketServices.instance.getChatMessage { (success) in
-            if (success) {
+        SocketServices.instance.getChatMessage { (message) in
+            if MessageServices.instance.selectedChannel?.id == message.channelId && AuthServices.instance.loggedIn {
+                MessageServices.instance.messages.append(message)
                 self.tableview.reloadData()
-                let endIndex = IndexPath(row: MessageServices.instance.messages.count - 1, section: 0)
-                self.tableview.scrollToRow(at: endIndex, at: .bottom, animated: false)
+                self.scrollToEnd()
             }
         }
+
         
         SocketServices.instance.getTypingUsers { (typingUsers) in
             guard let channelId = MessageServices.instance.selectedChannel?.id else { return }
@@ -128,8 +129,14 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         MessageServices.instance.findAllMessagesByChannel(id: channelId) { (success) in
             if success {
                 self.tableview.reloadData()
+                self.scrollToEnd()
             }
         }
+    }
+    
+    func scrollToEnd () {
+        let endIndex = IndexPath(row: MessageServices.instance.messages.count - 1, section: 0)
+        self.tableview.scrollToRow(at: endIndex, at: .bottom, animated: false)
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -183,5 +190,4 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             isTyping = true
         }
     }
-    
 }
